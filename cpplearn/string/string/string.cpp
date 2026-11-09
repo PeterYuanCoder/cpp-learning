@@ -50,3 +50,25 @@ using namespace std;
 //
 //	return 0;
 //}
+
+
+
+//c_str  将cpp文件风格转换成c文件风格
+
+//int main()
+//{
+//	string filename = "string.cpp";
+//	FILE* fout = fopen(filename.c_str(), "r");
+//	if (fout == nullptr)
+//	{
+//		perror("fopen fail");
+//		return -1;
+//	}
+//	char ch = fgetc(fout);         //读取文件中的一个字符，文件指针向后移动一位
+//	while (ch != EOF)
+//	{
+//		cout << ch;
+//		ch = fgetc(fout);
+//	}
+//	return 0;
+//}
