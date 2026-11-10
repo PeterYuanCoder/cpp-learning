@@ -1,8 +1,55 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include<iostream>
-#include<string>
-using namespace std;
+#include"string.h"
+
+
+//string 类的常见构造
+
+//int main()
+//{
+//	string  s1;    //空的string 类的对象
+//	string s2("hello world");
+//	string s3(s1);      //构造拷贝函数
+//	return 0;
+//}
+
+
+//string 容量操作函数
+
+//size    返回有效字符个数
+//length   返回字符串有效长度
+//capacity  返回容量大小          小于15，编译器默认为15   只变大不缩小
+//empty    测试字符串是否为空串   是返回true  不是返回false
+//clear  清空有效字符
+//resever   为字符串预留空间
+//resize    将有效字符个数改为n个，其余的位置使用字符c来填充
+
+//int main()
+//{
+//	string s1 = "hello world!!!";
+//	cout << s1.size() << endl;
+//	cout << s1.length() << endl;
+//	cout << s1.capacity() << endl;
+//	cout << boolalpha;             //不加这一句返回的是0，而不是false
+//	cout << s1.empty() << endl;
+//	s1.clear();
+//	cout << s1.empty() << endl;     //清空有效字符之后，就是返回true
+//
+//
+//	string s2;
+//	s2.reserve(100);     //预留100空间，capacity返回值空间必须大于100
+//	cout << s2.capacity() << endl;
+//
+//	string s3 = "I like C";
+//	s3.resize(s3.size() + 2, '+');
+//	cout << s3 << endl;
+//
+//	return 0;
+//}
+
+
+
+
 
 //int main()
 //{
@@ -72,3 +119,22 @@ using namespace std;
 //	}
 //	return 0;
 //}
+
+
+
+//getline
+
+//int main()
+//{
+//	string s1;
+//	getline(cin, s1);
+//	cout << s1 << endl;
+//	
+//	//使用cin输入字符串时，会将空格和\n看成结束      输入hello world  只会输出hello
+//	string s2;
+//	cin >> s2;
+//	cout << s2 << endl;
+//	return 0;
+//}
+
+
