@@ -48,22 +48,11 @@
 //}
 
 
+//operator[]  下标访问方式
+//迭代器访问
+//范围for
 
-
-
-//int main()
-//{
-//	string s1;
-//	string s2("hello world");
-//	cout << s2 << endl;
-//	cout << s2.size() << endl;   //size()不算字符串后面的'\0'
-//
-//	string s3("我是冠军");     
-//	cout << s3.size() << endl;
-//	return 0;
-//}
-
-
+//string 类对象的访问和遍历方式
 
 //int main()
 //{
@@ -100,7 +89,66 @@
 
 
 
-//c_str  将cpp文件风格转换成c文件风格
+
+//string 类的修改操作
+
+//1. push_back     字符串尾插一个"字符" (不是字符串)
+
+//int main()
+//{
+//	string s1 = "hello world";
+//	s1.push_back('!');
+//	cout << s1;
+//	return 0;
+//}
+
+
+//2. append    在字符串后追加一个字符串
+
+//int main()
+//{
+//	string s1;
+//	string s2 = "hello world";
+//	string s3 = "I love C";
+//	
+//	s1.append(s2);
+//	cout << s1 << endl;
+//	s2.append(s2);
+//	cout << s2 << endl;
+//
+//	s2.append("!");
+//	cout<<s2<<endl;
+//	s3.append(2,'+');
+//	cout << s3 << endl;
+//	s3.append("+++", 2);   //从"+++"中取两个追加
+//	cout << s3 << endl;
+//
+//	return 0;
+//}
+
+
+
+//3. operatot+=          在字符串后追加字符串
+
+//int main()
+//{
+//	string s1;
+//	string s2 = " world";
+//	s1 += "hello";
+//	cout << s1 << endl;
+//
+//	s1 += s2;
+//	cout << s1 << endl;
+//	
+//	s1 += "!";
+//	cout << s1 << endl;
+//	return 0;
+//}
+
+
+
+
+//4. c_str  将cpp文件风格转换成c文件风格
 
 //int main()
 //{
@@ -121,6 +169,34 @@
 //}
 
 
+
+//5. fing+npos    从字符串pos位置开始往后找字符c，返回该字符在字符串中的位置
+
+
+int main()
+{
+	string s1 = "hello world";
+	size_t top = s1.find("world");   //返回类型一定要是size_t
+	cout << top << endl;
+	size_t tmp = s1.rfind("o");
+	cout << tmp << endl;
+	return 0;
+}
+
+
+
+//6. substr   在str中从pos位置开始，截取n个字符，然后将其返回
+
+//int main()
+//{
+//	string s1 = "hello world";
+//	string  s2 = s1.substr(0, 5);
+//	cout << s2 << endl;
+//	return 0;
+//}
+
+
+//string 类非成员函数
 
 //getline
 
