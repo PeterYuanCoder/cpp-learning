@@ -171,17 +171,17 @@
 
 
 //5. fing+npos    从字符串pos位置开始往后找字符c，返回该字符在字符串中的位置
+//find       从字符串pos位置开始往前找字符c，返回该字符在字符串中的位置
 
-
-int main()
-{
-	string s1 = "hello world";
-	size_t top = s1.find("world");   //返回类型一定要是size_t
-	cout << top << endl;
-	size_t tmp = s1.rfind("o");
-	cout << tmp << endl;
-	return 0;
-}
+//int main()
+//{
+//	string s1 = "hello world";
+//	size_t top = s1.find("world");   //返回类型一定要是size_t
+//	cout << top << endl;
+//	size_t tmp = s1.rfind("o");
+//	cout << tmp << endl;
+//	return 0;
+//}
 
 
 
@@ -198,7 +198,20 @@ int main()
 
 //string 类非成员函数
 
-//getline
+
+//1. operator+
+
+//int main()
+//{
+//	string s1 = "hello";
+//	string s2 = " world";
+//	cout << s1 + s2 << endl;
+//	return 0;
+//}
+
+
+
+//2. getline           获取一行字符串
 
 //int main()
 //{
