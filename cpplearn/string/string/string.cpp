@@ -196,6 +196,44 @@
 //}
 
 
+//7.insert       往前插入
+
+//int main()
+//{
+//	string s1 = "hello";
+//	string s2 = " world";
+//	s1.insert(s1.size(), s2);
+//	cout << s1 << endl;
+//	s1.insert(s1.size(), "!");
+//	cout << s1 << endl;
+//	s1.insert(s1.size(), " hello world", 5);       //从字符串中取n个插入，到s1中。
+//	cout << s1 << endl;
+//	return 0;
+//}
+
+
+//8. erase         删除字符
+
+
+//int main()
+//{
+//	//下标删除
+//	string s1 = "hello world";
+//	s1.erase(2,3);         //不给删除个数则是直接删到尾，或者不穿参直接全删
+//	cout << s1 << endl;
+//	
+//	//迭代器删除
+//	string s2 = "I love C++";
+//	s2.erase(s2.begin() + 2);    //删除下标为2的字符
+//	cout << s2 << endl;
+//	
+//	string s3 = "I love you";
+//	s3.erase(s3.begin() + 2, s3.begin() + 5);    //左闭右开
+//	cout << s3 << endl;
+//	return 0;
+//}
+
+
 //string 类非成员函数
 
 
@@ -227,3 +265,70 @@
 //}
 
 
+
+//string 类的模拟实现
+
+namespace space
+{
+	//构造函数
+	string::string()
+		:_str(new char[1])
+		, _size(0)
+		, _capacity(0)
+	{
+		_str[0] = '\0';
+	}
+	//初始化列表
+	string::string(const char* str)
+		:_size(strlen(str))
+	{
+		_capacity = _size;
+		_str = new char[_size + 1];
+		strcpy(_str, str);
+	}
+
+	string::string(const string& s)
+		:_str(new char[s._capacity + 1])
+		, _size(s._size)
+		, _capacity(s._capacity)
+	{
+		cout << "string::string(const string& s)" << endl;
+		strcpy(_str, s._str);
+	}
+
+	//s1=s2
+	//s1=s1
+	string& string::operator=(const string& s)
+	{
+		if (this != &s)
+		{
+			delete[] _str;
+			_str = new char[s._capacity + 1];
+			strcpy(_str, s._str);
+			_size = s._size;
+			_capacity = s._capacity;
+		}
+		return *this;
+	}
+
+
+	//析构函数
+	string::~string()
+	{
+		delete _str;
+		_str = nullptr;
+		_size = _capacity = 0;
+	}
+
+	void string::reserve(size_t n)
+	{
+		if (_capacity > 0)
+		{
+			char* tmp = new char[n + 1];
+			strcpy(tmp, _str);
+			delete[] _str;
+			_str = tmp;
+			_capacity = 0;
+		}
+	}
+}
