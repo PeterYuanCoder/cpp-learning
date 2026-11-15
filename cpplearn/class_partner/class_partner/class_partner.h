@@ -1,40 +1,66 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include<iostream>
 using namespace std;
 
+//
+//class Time
+//{
+//public:
+//    Time(int hour)
+//        :_hour(hour)
+//    {
+//        cout << "Time()" << endl;
+//    }
+//private:
+//    int _hour;
+//};
+
 class Date
 {
 public:
-	//³ÉÔ±º¯Êý
+	//æˆå‘˜å‡½æ•°
 	void Init(int year, int month, int day);
-	void Print();
+    void Print() const;
 
-	Date();    //ÎÞ²Î¹¹Ôìº¯Êý
-	Date(int year, int month, int day);     //´ø²Î¹¹Ôìº¯Êý
-	//Date(int year = 1, int month = 1, int day = 1);      //È«È±Ê¡¹¹Ôìº¯Êý
+	Date();    //æ— å‚æž„é€ å‡½æ•°
+	//Date(int year, int month, int day);     //å¸¦å‚æž„é€ å‡½æ•°
+	//Date(int year = 1, int month = 1, int day = 1);      //å…¨ç¼ºçœæž„é€ å‡½æ•°
 
-    Date(const Date& d);       //¿½±´¹¹Ôìº¯Êý
-    Date(Date* d);           //ÆÕÍ¨¹¹Ôìº¯Êý
+    Date(const Date& d);       //æ‹·è´æž„é€ å‡½æ•°
+    Date(Date* d);           //æ™®é€šæž„é€ å‡½æ•°
 
-    friend bool operator==(const Date& d1, const Date& d2);    //ÓÑÔªº¯Êý     Ò²¿ÉÒÔ·ÅÔÚÀàÀïÃæ£¬ÖØÔØÎª³ÉÔ±º¯Êý
+    friend bool operator==(const Date& d1, const Date& d2);    //å‹å…ƒå‡½æ•°     ä¹Ÿå¯ä»¥æ”¾åœ¨ç±»é‡Œé¢ï¼Œé‡è½½ä¸ºæˆå‘˜å‡½æ•°
 
-    Date operator=(const Date& d);           //ÔËËã·ûÖØÔØ
+    Date operator=(const Date& d);           //è¿ç®—ç¬¦é‡è½½
+
+    //åˆå§‹åŒ–åˆ—è¡¨
+    Date(int year = 1, int month = 1, int day = 1)
+        :_year(year)
+        , _month(month)
+        , _day(day)
+    {
+
+    }
 
 private:
-	//³ÉÔ±±äÁ¿
-	int _year;
-	int _month;
-	int _day;
-};//·ÖºÅ²»ÄÜÉÙ
+	//æˆå‘˜å˜é‡
 
-// ÖØÔØÎªÈ«¾ÖµÄÃæÁÙ¶ÔÏó·ÃÎÊË½ÓÐ³ÉÔ±±äÁ¿µÄÎÊÌâ
-// ÓÐ¼¸ÖÖ·½·¨¿ÉÒÔ½â¾ö:
-// 1¡¢³ÉÔ±·Å¹«ÓÐ
-// 2¡¢DateÌá¹©getxxxº¯Êý
-// 3¡¢ÓÑÔªº¯Êý
-// 4¡¢ÖØÔØÎª³ÉÔ±º¯Êý
+    // æ³¨æ„è¿™â¾¥ä¸æ˜¯åˆå§‹åŒ–ï¼Œè¿™â¾¥ç»™çš„æ˜¯ç¼ºçœå€¼ï¼Œè¿™ä¸ªç¼ºçœå€¼æ˜¯ç»™åˆå§‹åŒ–åˆ—è¡¨çš„
+    // å¦‚æžœåˆå§‹åŒ–åˆ—è¡¨æ²¡æœ‰æ˜¾â½°åˆå§‹åŒ–ï¼Œé»˜è®¤å°±ä¼šâ½¤è¿™ä¸ªç¼ºçœå€¼åˆå§‹åŒ–
+    int _year = 1;
+	int _month = 1;
+	int _day;
+
+};//åˆ†å·ä¸èƒ½å°‘
+
+// é‡è½½ä¸ºå…¨å±€çš„é¢ä¸´å¯¹è±¡è®¿é—®ç§æœ‰æˆå‘˜å˜é‡çš„é—®é¢˜
+// æœ‰å‡ ç§æ–¹æ³•å¯ä»¥è§£å†³:
+// 1ã€æˆå‘˜æ”¾å…¬æœ‰
+// 2ã€Dateæä¾›getxxxå‡½æ•°
+// 3ã€å‹å…ƒå‡½æ•°
+// 4ã€é‡è½½ä¸ºæˆå‘˜å‡½æ•°
 bool operator==(const Date& d1, const Date& d2);
 
 
@@ -48,7 +74,7 @@ public:
         _a = (STDataType*)malloc(sizeof(STDataType) * n);
         if (nullptr == _a)
         {
-            perror("mallocÉêÇë¿Õ¼äÊ§°Ü");
+            perror("mallocç”³è¯·ç©ºé—´å¤±è´¥");
             return;
         }
 
@@ -70,12 +96,79 @@ private:
     size_t _top;
 };
 
-// Á½¸öStackÊµÏÖ¶ÓÁÐ
+// ä¸¤ä¸ªStackå®žçŽ°é˜Ÿåˆ—
 class MyQueue
 {
 public:
-    //±àÒëÆ÷Ä¬ÈÏÉú³ÉMyQueueµÄ¹¹Ôìº¯Êýµ÷ÓÃÁËStackµÄ¹¹Ôì£¬Íê³ÉÁËÁ½¸ö³ÉÔ±µÄ³õÊ¼»¯
+    //ç¼–è¯‘å™¨é»˜è®¤ç”ŸæˆMyQueueçš„æž„é€ å‡½æ•°è°ƒç”¨äº†Stackçš„æž„é€ ï¼Œå®Œæˆäº†ä¸¤ä¸ªæˆå‘˜çš„åˆå§‹åŒ–
 private:
     Stack pushst;
     Stack popst;
 };
+
+
+
+
+class A
+{
+public:
+    //æŠŠå†…ç½®ç±»åž‹ `int(a)`ï¼Œéšå¼è½¬æ¢æˆç±»ç±»åž‹ `A` çš„ä¸´æ—¶å¯¹è±¡ã€‚
+
+    //åˆå§‹åŒ–åˆ—è¡¨
+    A(int a1)
+        :_a1(a1)
+    {
+
+    }
+    //æž„é€ å‡½æ•°explicitå°±ä¸å†æ”¯æŒéšå¼ç±»åž‹è½¬æ¢
+    explicit A(int a1, int a2)
+        :_a1(a1)
+        , _a2(a2)
+    {
+
+    }
+    void Print()
+    {
+        cout << _a1 << " " << _a2 << endl;
+    }
+
+    int Git() const
+    {
+        return _a1 + _a2;
+    }
+
+private:
+    int _a1 = 1;
+    int _a2 = 1;
+};
+
+
+class B
+{
+public:
+    B()
+    {
+        ++_scount;
+    }
+
+    B(const B& t)
+    {
+        ++_scount;
+    }
+
+    ~B()
+    {
+        --_scount;
+    }
+
+    static int GetBCount()
+    {
+        return _scount;
+    }
+private:
+    // ç±»é‡Œé¢å£°æ˜Ž
+    static int _scount;
+};
+
+
+

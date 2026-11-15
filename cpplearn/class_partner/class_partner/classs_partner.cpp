@@ -11,7 +11,7 @@ void Date::Init(int year, int month, int day)
 	this->_day = day;
 }
 
-void Date::Print()
+void Date::Print() const
 {
 	cout << _year << "/" << _month << "/" << _day << endl;
 }
@@ -25,12 +25,12 @@ Date::Date()
 }
 
 //带参构造函数
-Date::Date(int year, int month, int day)
-{
-	_year = year;
-	_month = month;
-	_day = day;
-}
+//Date::Date(int year, int month, int day)
+//{
+//	_year = year;
+//	_month = month;
+//	_day = day;
+//}
 
 
 //拷贝构造函数
@@ -96,3 +96,7 @@ struct ListNodeCPP
 	int val;
 };
 
+
+
+// 类外面初始化
+int B::_scount = 0;
