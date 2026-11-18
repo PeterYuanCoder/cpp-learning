@@ -324,6 +324,7 @@ namespace space
 	{
 		if (_capacity > 0)
 		{
+			// 每次开空间多开一个，因为_capacity不包含\0
 			char* tmp = new char[n + 1];
 			strcpy(tmp, _str);
 			delete[] _str;
@@ -331,4 +332,119 @@ namespace space
 			_capacity = 0;
 		}
 	}
+
+	void string::push_back(char ch)
+	{
+		//扩容
+		if (_size == _capacity)
+		{
+			reserve(_capacity == 0 ? 4 : _capacity * 2);
+		}
+		_str[_size] = ch;
+		_size++;
+		_str[_size] = '\0';
+	}
+
+	void string::append(const char* str) {
+		size_t len = strlen(str);
+		//扩容
+		if (_size + len > _capacity)
+		{
+			reserve(_size + len);
+		}
+		strcpy(&_str[_size], str);   //这里一定要取地址，或者_str+_size
+		_size += len;
+	}
+
+	string& string::operator+=(char ch)
+	{
+		push_back(ch);
+		return *this;
+	}
+
+	string& string::operator+=(const char* str)
+	{
+		append(str);
+		return *this;
+	}
+
+	void string::insert(size_t pos, char ch)
+	{
+		assert(pos <= _size);
+		if (_size == _capacity)
+		{
+			reserve(_capacity == 0 ? 4 : _capacity * 2);
+		}
+		size_t end = _size + 1;
+		//从后先前，挪动数据，找到pos下标位置
+		while (end > pos)
+		{
+			_str[end] = _str[end - 1];
+			end--;
+		}
+		_str[pos] = ch;
+		_size++;
+	}
+
+	void string::insert(size_t pos, const char* str)
+	{
+		size_t len = strlen(str);
+		if (_size + len > _capacity)
+		{
+			reserve(_size + len);
+		}
+		size_t end = _size + len;
+		while (end > pos+len-1)
+		{
+			_str[end] = _str[end + len];
+			end--;
+		}
+		//插入
+		for (int i = 0; i < len; i++)
+		{
+			_str[pos + i] = str[i];
+		}
+		_size += len;
+	}
+
+
+	void string::erase(size_t pos = 0, size_t len)
+	{
+		//如果只传一个参数，len为缺省值，直接删到末尾 
+		if (len == string::npos || len >= _size - pos)
+		{
+			_str[pos] = '\0';
+			_size = pos;
+		}
+		else
+		{
+			for (int i = len+pos; i <= _size; i++)
+			{
+				_str[pos] = _str[pos + len];
+				pos++;
+			}
+			_size -= len;
+		}
+	}
+
+	size_t string::find(char ch, size_t pos = 0) const
+	{
+		assert(pos < _size);
+		for (int i = pos; i <= _size; i++)
+		{
+			if (_str[i] == ch)
+			{
+				return i;
+			}
+		}
+		return npos;
+	}
+
+	void string::swap(string* s)
+	{
+		std::swap(_str, _str);
+		std::swap(_size, _size);
+		std::swap(_capacity, _capacity);
+	}
+
 }
