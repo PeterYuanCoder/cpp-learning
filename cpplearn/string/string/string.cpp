@@ -315,21 +315,21 @@ namespace space
 	//析构函数
 	string::~string()
 	{
-		delete _str;
+		delete[] _str;
 		_str = nullptr;
 		_size = _capacity = 0;
 	}
 
 	void string::reserve(size_t n)
 	{
-		if (_capacity > 0)
+		if (n > _capacity)
 		{
 			// 每次开空间多开一个，因为_capacity不包含\0
 			char* tmp = new char[n + 1];
 			strcpy(tmp, _str);
 			delete[] _str;
 			_str = tmp;
-			_capacity = 0;
+			_capacity = n;
 		}
 	}
 
@@ -408,7 +408,7 @@ namespace space
 	}
 
 
-	void string::erase(size_t pos = 0, size_t len)
+	void string::erase(size_t pos , size_t len)
 	{
 		//如果只传一个参数，len为缺省值，直接删到末尾 
 		if (len == string::npos || len >= _size - pos)
@@ -427,7 +427,7 @@ namespace space
 		}
 	}
 
-	size_t string::find(char ch, size_t pos = 0) const
+	size_t string::find(char ch, size_t pos ) const
 	{
 		assert(pos < _size);
 		for (int i = pos; i <= _size; i++)
@@ -440,11 +440,119 @@ namespace space
 		return npos;
 	}
 
+	size_t string::find(const char* s, size_t pos ) const
+	{
+		assert(pos < _size);
+		const char* ptr = strstr(&_str[pos], s);       //strstr返回值是子串起始位置
+		if (ptr == nullptr)
+		{
+			return npos;
+		}
+		else
+		{
+			return ptr - _str;
+		}
+	}
+
+
+	string string::substr(size_t pos , size_t len) const
+	{
+		assert(pos < _size);
+		//没穿参或者大于数据长度，直接全取
+		if (len == string::npos || len >= _size - pos)
+		{
+			len = _size - pos;
+		}
+		string sub;
+		sub.reserve(len);   //开辟空间来存放截取的子串
+		for (int i = 0; i < len; i++)
+		{
+			sub += _str[pos + i];
+		}
+		return sub;
+	}
+
 	void string::swap(string* s)
 	{
 		std::swap(_str, _str);
 		std::swap(_size, _size);
 		std::swap(_capacity, _capacity);
+	}
+
+	string operator+ (const string& lhs, const string& rhs)
+	{
+		string ret = lhs;
+		ret += rhs.c_str();
+		return ret;
+	}
+	string operator+ (const string& lhs, const char* rhs)
+	{
+		string ret = lhs;
+		ret += rhs;
+		return ret;
+	}
+	string operator+ (const char* lhs, const string& rhs)
+	{
+		string ret = lhs;
+		ret += rhs.c_str();
+		return ret;
+	}
+
+	bool operator== (const string& lhs, const string& rhs)
+	{
+		return strcmp(lhs.c_str(), rhs.c_str()) == 0;
+	}
+	bool operator!= (const string& lhs, const string& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	bool operator>(const string& lhs, const string& rhs)
+	{
+		return strcmp(lhs.c_str(), rhs.c_str()) > 0;
+	}
+	bool operator<(const string& lhs, const string& rhs)
+	{
+		return !(lhs > rhs);
+	}
+	bool operator>= (const string& lhs, const string& rhs)
+	{
+		return (lhs > rhs) || (lhs == rhs);
+	}
+	bool operator<= (const string& lhs, const string& rhs)
+	{
+		return  lhs < rhs || lhs == rhs;
+	}
+
+
+	ostream& operator<<(ostream& out, const string& s)
+	{
+		for (auto ch : s)
+		{
+			out << ch;
+		}
+		return out;
+	}
+	istream& operator>>(istream& in, string& s)
+	{
+		char ch;
+		ch = in.get();
+		while (ch != ' ' && ch != '\n')
+		{
+			s += ch;
+			ch = in.get();
+		}
+		return in;
+	}
+	istream& getline(istream& in, string& s)
+	{
+		char ch;
+		ch = in.get();
+		while (ch != '\n') {
+			s += ch;
+			ch = in.get();
+		}
+		return in;
 	}
 
 }
